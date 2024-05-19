@@ -1,7 +1,7 @@
 import json
 from operator import itemgetter
 import re
-import os
+
 
 
 def mask_card_number(card_number):
@@ -68,19 +68,10 @@ def format_and_print_operations(operations):
         print(f"{from_account} -> {to_account}")
         print(f"{amount} {currency}\n")
 
-if os.name == 'nt':
-    file_path = 'C:\\Users\\Maksim Gogol\\Desktop\\Coursework _3_ Gogol_Maksim\\operations.json'
-else:
-    file_path = '/mnt/c/Users/Maksim Gogol/Desktop/Coursework _3_ Gogol_Maksim/operations.json'
-
-# Функция для чтения данных из файла
 def read_data_from_file(file_path):
     with open(file_path, 'r', encoding='utf-8') as file:
         data = json.load(file)
     return data
 
-# Чтение данных из файла и фильтрация выполненных операций
-data = read_data_from_file(file_path)
-executed_operations = [op for op in data if op.get("state") == 'EXECUTED']
-format_and_print_operations(executed_operations)
+
 
