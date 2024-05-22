@@ -1,14 +1,18 @@
 from function import read_data_from_file, format_and_print_operations
-import os
 from pathlib import Path
 
+BASE_DIR = Path(__file__).resolve().parent
+OPERATIONS_PATH = BASE_DIR.joinpath('operations.json')
 
 
-if os.name == 'nt':
-    OPERATIONS_PATH = Path('C:\\Users\\Maksim Gogol\\Desktop\\Coursework _3_ Gogol_Maksim\\operations.json')
-else:
-    OPERATIONS_PATH = Path('/mnt/c/Users/Maksim Gogol/Desktop/Coursework _3_ Gogol_Maksim/operations.json')
+def main():
+    operations = read_data_from_file(OPERATIONS_PATH)
+    executed_operations = [
+        op for op in operations
+        if op.get("state") == 'EXECUTED'
+    ]
+    format_and_print_operations(executed_operations)
 
-data = read_data_from_file(OPERATIONS_PATH)
-executed_operations = [op for op in data if op.get("state") == 'EXECUTED']
-format_and_print_operations(executed_operations)
+
+if __name__ == '__main__':
+    main()
